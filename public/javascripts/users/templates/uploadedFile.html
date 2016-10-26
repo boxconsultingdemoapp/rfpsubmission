@@ -1,0 +1,35 @@
+<li class="list-group-item" id="<%= file.id %>" data-id="<%= file.id %>" data-name="<%= file.name %>" data-ext="<%= file.extension %>">
+	<span class="file" data-id="<%= file.id %>" data-name="<%= file.name %>">
+		<i class="fa fa-file fa-2x fa-fw" aria-hidden="true"></i>
+		<span class="file-name"><%= file.name %></span>
+	</span>
+	<span data-id="<%= file.id %>" class="pull-right file-menu"><i class="fa fa-bars fa-fw fa-2x" aria-hidden="true"></i></span>
+	<div class='file-menu-ui'>
+		<hr>
+		<label for="newFileName<%= file.id %>">Rename this file</label>
+		<div class="input-group">
+			<input id="newFileName<%= file.id %>" type="text" class="form-control" value="<%= file.onlyName %>">
+			<span class="input-group-btn">
+				<button data-id="<%= file.id %>" class="edit-file-name btn btn-default" type="button">Edit</button>
+			</span>
+		</div>
+		<hr>
+		<div class='button-group row' role='group'>
+			<div class='col-md-4'>
+				<a class='btn btn-default btn-block' role='button' id='download-button' href='<%= file.domain %>/files/download/<%= file.id %>'>
+					<i class='fa fa-download fa-fw fa-lg' aria-hidden='true'></i> Download
+				</a>
+			</div>
+			<div class='col-md-4'>
+				<div data-id='<%= file.id %>' data-name='<%= file.name %>' class='btn btn-default btn-block viewComments'>
+					<i class='fa fa-comments fa-lg fa-fw'></i> View Comments
+				</div>
+    	</div>
+			<div class='col-md-4'>
+				<div data-id='<%= file.id %>' data-name='<%= file.name %>' class='btn btn-danger btn-block deleteFile'>
+					<i class='fa fa-trash-o fa-lg fa-fw'></i> Delete
+				</div>
+			</div>
+		</div>
+	</div>
+</li>

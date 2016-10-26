@@ -1,0 +1,28 @@
+<div class='file-menu-ui'>
+  <hr>
+  <label for="newFileName<%= file.id %>">Rename this file</label><i data-id="<%= file.id %>" class="enable-rename-file fa fa-pencil-square-o fa-fw fa-lg" aria-hidden="true"></i>
+  <div class="input-group">
+    <input data-id="<%= file.id %>" disabled id="newFileName<%= file.id %>" type="text" class="editing-file-name form-control" value="<%= file.onlyName %>">
+    <span class="input-group-btn">
+      <button data-id="<%= file.id %>" class="edit-file-name btn btn-default" type="button">Edit</button>
+    </span>
+  </div>
+  <hr>
+  <div class='button-group row' role='group'>
+    <div class='col-md-4'>
+      <a class='btn btn-default btn-block' role='button' id='download-button' href='<%= file.domain %>/files/download/<%= file.id %>'>
+        <i class='fa fa-download fa-fw fa-lg' aria-hidden='true'></i> Download
+      </a>
+    </div>
+    <div class='col-md-4'>
+      <div data-id='<%= file.id %>' data-name='<%= file.name %>' class='btn btn-default btn-block viewComments'>
+        <i class='fa fa-comments fa-lg fa-fw'></i> View Comments
+      </div>
+    </div>
+    <div class='col-md-4'>
+      <div data-id='<%= file.id %>' data-name='<%= file.name %>' class='btn btn-danger btn-block deleteFile'>
+        <i class='fa fa-trash-o fa-lg fa-fw'></i> Delete
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<div id="folders" class="col-md-3">
+  <div class="row">
+    <div class="col-md-12">
+      <h4>Folders</h4>
+      <% if(folders.length === 0) { %>
+        <p id="noFolders" class="warning text-center">No subfolders found.</p>
+      <% } %>
+      <ul id="folderGroup" class="list-group">
+      <% folders.forEach(function(folder) { %>
+        <li id="<%= folder.id %>" class="list-group-item">
+          <span class="folder" style="cursor: pointer;" data-id="<%= folder.id %>">
+            <i class="fa fa-folder fa-2x fa-fw" aria-hidden="true"></i>
+            <span class="folder-name"><%= folder.name %></span> 
+          </span>
+          <span data-id="<%= folder.id %>" class="pull-right folder-menu"><i class="fa fa-bars fa-fw fa-2x" aria-hidden="true"></i></span>
+          <span data-menu-id="<%= folder.id %>"></span>
+          <%- include ../partials/folder-menu %>
+        </li>
+      <% }); %>
+      </ul>
+    </div>
+  </div>
+  
+</div>

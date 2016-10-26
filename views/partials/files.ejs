@@ -1,0 +1,17 @@
+<div id="files" class="col-md-6">
+  <h4>Files</h4>
+  <% if(files.length === 0) { %>
+    <p id="noFiles" class="warning text-center">No files found.</p>
+  <% } %>
+  <ul id="fileGroup" class="list-group">
+  <% files.forEach(function(file) { %>
+    <li class="list-group-item" id="<%= file.id %>" data-id="<%= file.id %>" data-name="<%= file.name %>" data-ext="<%= file.extension %>">
+      <span class="file" data-id="<%= file.id %>" data-name="<%= file.name %>">
+        <i class="fa fa-file fa-2x fa-fw" aria-hidden="true"></i>
+        <span class="file-name"><%= file.name %></span>
+      </span>
+      <span data-id="<%= file.id %>" class="pull-right file-menu"><i class="fa fa-bars fa-fw fa-2x" aria-hidden="true"></i></span>
+      <%- include ../partials/file-menu %>
+    </li>
+  <% }); %>
+</div>

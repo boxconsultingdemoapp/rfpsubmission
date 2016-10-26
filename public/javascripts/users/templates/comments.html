@@ -1,0 +1,42 @@
+<div class='row'>
+  <div class='row'>
+    <div class='col-md-12'>
+      <p id="closeCommentsView"><i class="fa fa-times fa-2x" aria-hidden="true"></i></p>
+    </div>
+  </div>
+  <h3 id="commentsFileName"><%= commentsView.file.name %></h3>
+  <div class='col-md-12'>
+    <h5>Add a comment to this file</h5>
+    <textarea id="addCommentMessage" rows='5' class='form-control'></textarea>
+  </div>
+  <div class="col-md-6 pull-right">
+    <hr>
+    <button data-file-id="<%= commentsView.file.id %>" id="addComment" type="button" class="btn btn-default btn-block">Add Comment</button>
+  </div>
+</div>
+<div id="commentsUi" class='row'>
+  <div class='col-md-12'>
+    <h3 class='pull-right'>Comments on this file</h3>
+  </div>
+  <% if(commentsView.comments.length === 0) { %>
+    <p id="noComments" class="warning text-center">No comments found.</p>
+  <% } %>
+  <div class='col-md-12'>
+    <ul id="commentsGroup" class='list-group'>
+      <% commentsView.comments.forEach(function(comment) { %>
+        <li class='comment list-group-item' id="<%= comment.id %>" data-id="<%= comment.id %>">
+          <% if(commentsView.userId === comment.created_by.id) { %>
+            <p id="deleteComment" data-comment-id="<%= comment.id %>" class="pull-right"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></p>
+          <% } %>
+          <h5 data-name="<%= comment.created_by.name %>" class='comment-name list-group-item-heading'><%= comment.created_by.name %></h5>
+          <p class='comment-message list-group-item-text small'>
+            <%= comment.message %>
+            <% if(commentsView.userId === comment.created_by.id) { %>
+              <i data-comment-id="<%= comment.id %>" class="editComment fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>
+            <% } %>
+          </p>
+        </li>
+      <% }); %>
+    </ul>
+  </div>
+</div>

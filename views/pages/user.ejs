@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <%- include ../partials/head %>
+</head>
+
+<body>
+  <div id="box-header" class="container-fluid">
+    <div class="jumbotron">
+      <h1>
+      <%= title %>
+      </h1>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-1">
+            <img class="img-responsive" src="<%= user.picture %>" />
+          </div>
+          <div class="col-md-11">
+            <h2> Welcome
+            <%= user.nickname %>! 
+            </h2>
+            <span id="logout"><h3><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i>Log out</h3></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div id="box-upload" class="container-fluid">
+    <div class="row">
+      <%- include ../partials/upload-progress.ejs %>
+    </div>
+  </div>
+  <div id="box-explorer" class="container-fluid">
+    <div class="row">
+      <div class="col-md-8">
+        <ul id="flashMessage" class="list-group"></ul>
+      </div>
+    </div>
+    <div class="row">
+      <%- include ../partials/folder-path %>
+      <hr>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <%- include ../partials/add-a-folder.ejs %>
+      </div>
+      <div class="col-md-6">
+        <%- include ../partials/upload-commands.ejs %>
+      </div>
+    </div>
+    <hr>
+    <div id="files-folders" class="row">
+      <%- include ../partials/folders %>
+      <%- include ../partials/files %>
+      <div class="col-md-3" id="fileViewUi">
+      </div>
+    </div>
+  </div>
+  <hr>
+  
+  
+  <%- include ../partials/scripts %>
+  <script src="<%= domain %>/javascripts/BoxSdk.min.js.map"></script>
+  <script src="<%= domain %>/javascripts/BoxSdk.min.js"></script>
+  <script src="<%= domain %>/javascripts/users/main.js"></script>
+  <script src="<%= domain %>/javascripts/users/fileDetail.js"></script>
+  <script src="<%= domain %>/javascripts/users/folder.js"></script>
+  <script src="<%= domain %>/javascripts/users/previewModal.js"></script>
+  <script src="<%= domain %>/javascripts/users/upload.js"></script>
+  <script src="<%= domain %>/javascripts/users/folderMenu.js"></script>
+  <script src="<%= domain %>/javascripts/users/fileMenu.js"></script>
+  <script src="<%= domain %>/javascripts/users/file.js"></script>
+  <script src="<%= domain %>/javascripts/users/comments.js"></script>
+  <script type="text/javascript">
+    var boxAccessToken = '<%= user.boxAccessTokenObject.accessToken %>';
+    var id_token = '<%= user.id_token %>';
+
+    function returnNewAccessToken(cb) {
+      $.ajax({
+        url: "http://localhost:3000/token",
+        method: "GET",
+        headers: { "Authorization": "Bearer " + id_token },
+        dataType: 'json',
+        contentType: 'application/json; charset=UTF-8'
+      })
+        .done(function (data) {
+          console.log(data);
+          cb(null, data);
+        });
+    }
+
+    var box = new BoxSdk();
+    var boxClient = new box.PersistentBoxClient({accessTokenHandler: returnNewAccessToken, isCallback: true});
+    var boxClientOptionsOnly = new box.PersistentBoxClient({accessTokenHandler: returnNewAccessToken, isCallback: true, noRequestMode: true});
+  </script>
+</body>
+
+</html>

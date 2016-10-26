@@ -1,0 +1,52 @@
+#folders {
+  border-right: 2px solid #999;
+}
+
+#flashMessage, #upload-progress-ui, .folder-menu-ui, .file-menu-ui, #addAFolder, #upload-ui, #addFolderOpen {
+  display: none;
+}
+
+#total-progress {
+  opacity: 0;
+}
+
+a.no-decoration, a.no-decoration:hover {
+  text-decoration: none;
+  color: black;
+}
+
+.file, .preview-thumbnail, #closeFileDetail, #logout, .folder-menu, .file-menu, #openUpload, #openAddFolder, #deleteComment, #closeCommentsView {
+  cursor: pointer;
+}
+
+.preview-iframe {
+  display: block;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.truncate {
+  width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (min-width: 800px) {
+  #modal-preview .modal-dialog, #modal-preview .modal-content, #modal-preview .modal-body {
+     width: 600px;
+     height: 550px;
+  }
+}
+@media (min-width: 1000px) {
+  #modal-preview .modal-dialog, #modal-preview .modal-content, #modal-preview .modal-body {
+     width: 850px;
+     height: 750px;
+  }
+}
+@media (min-width: 1200px) {
+  #modal-preview .modal-dialog, #modal-preview .modal-content, #modal-preview .modal-body {
+     width: 1150px;
+     height: 950px;
+  }
+}

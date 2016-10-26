@@ -1,0 +1,25 @@
+ <li id="<%= folder.id %>" class="list-group-item">
+  <span class="folder" style="cursor: pointer;" data-id="<%= folder.id %>">
+    <i class="fa fa-folder fa-2x fa-fw" aria-hidden="true"></i>
+    <span class="folder-name"><%= folder.name %></span> 
+  </span>
+  <span data-id="<%= folder.id %>" class="pull-right folder-menu"><i class="fa fa-bars fa-fw fa-2x" aria-hidden="true"></i></span>
+  <div class="folder-menu-ui">
+    <hr>
+    <label for="newFolderName<%= folder.id %>">Rename this folder</label><i data-id="<%= folder.id %>" class="enable-rename-folder fa fa-pencil-square-o fa-fw fa-lg" aria-hidden="true"></i>
+    <div class="input-group">
+      <input data-id="<%= folder.id %>" disabled id="newFolderName<%= folder.id %>" type="text" class="editing-folder-name form-control" value="<%= folder.name %>">
+      <span class="input-group-btn">
+        <button data-id="<%= folder.id %>" class="edit-folder-name btn btn-default" type="button">Edit</button>
+      </span>
+    </div>
+    <hr>
+    <div class='button-group row' role='group'>
+      <div class='col-md-6'>
+        <button data-id="<%= folder.id %>" data-name="<%= folder.name%>" class="btn btn-danger btn-block deleteFolder" type="button">
+          <i class="fa fa-trash" aria-hidden="true"></i> Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</li>

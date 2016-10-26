@@ -1,0 +1,12 @@
+<li class='comment list-group-item' id="<%= commentsView.comment.id %>" data-id="<%= commentsView.comment.id %>">
+  <% if(commentsView.userId === commentsView.comment.created_by.id) { %>
+    <p id="deleteComment" data-comment-id="<%= commentsView.comment.id %>" class="pull-right"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></p>
+  <% } %>
+  <h5 data-name="<%= commentsView.comment.created_by.name %>" class='comment-name list-group-item-heading'><%= commentsView.comment.created_by.name %></h5>
+  <p class='comment-message list-group-item-text small'>
+    <%= commentsView.comment.message %>
+    <% if(commentsView.userId === commentsView.comment.created_by.id) { %>
+      <i data-comment-id="<%= commentsView.comment.id %>" class="editComment fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>
+    <% } %>
+  </p>
+</li>

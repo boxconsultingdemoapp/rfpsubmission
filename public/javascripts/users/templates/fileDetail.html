@@ -1,0 +1,48 @@
+<div class='row'>
+  <div class='row'>
+    <div class='col-md-12'>
+      <p id="closeFileDetail"><i class="fa fa-times fa-2x" aria-hidden="true"></i></p>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col-md-12'>
+      <img class='thumbnail preview-thumbnail' data-id='<%= file.id %>' src='<%= file.domain %>/files/thumbnail/<%= file.id %>'>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col-md-12'>
+      <div class='row'>
+        <div class='col-md-12'>
+          <p>
+            <%= file.name %>
+          </p>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='col-md-12'>
+          <small>Created by: <%= file.created_by.name %></small>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='col-md-12'>
+          <small>Created on: <%= file.content_created_at %></small>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='col-md-12'>
+          <small>Uploaded on: <%= file.created_at %></small>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='col-md-12'>
+          <small>Last modified by: <%= file.modified_by.name %></small>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='col-md-12'>
+          <small>Last modified on: <%= file.modified_at %></small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
