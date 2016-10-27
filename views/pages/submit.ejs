@@ -11,6 +11,8 @@
 
       <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3">
           <span id="rootFolder" style:"display:none;" data-id="<%= submissionFolder %>"></span>
+          <span id="companyName" style:"display:none;" data-company="<%= user.user_metadata.Company %>"></span>
+          <span id="fullName" style:"display:none;" data-full-name="<%= user.user_metadata.FullName %>"></span>
           <h3 class="sub-header">
             <a href="<%= domain %>/landing" class="navText"> Open RFPs</a> <i class="fa fa-chevron-right smaller" aria-hidden="true"></i> 
             <a href="#" class="navText"><%= rfpName %></a> <i class="fa fa-chevron-right smaller" aria-hidden="true"></i> 
@@ -39,6 +41,11 @@
             <label for="uploadedFiles">Submit files to the RFP:</label>
             <div id="box-explorer" class="fluid-container">
               <div class="row">
+                <div class="col-md-8">
+                  <ul id="flashMessage" class="list-group"></ul>
+                </div>
+              </div>
+              <div class="row">
                 <%- include ../partials/upload-commands.ejs %>
               </div>
             </div>
@@ -59,15 +66,15 @@
           <%- include ../partials/scripts %>
   <script src="<%= domain %>/javascripts/BoxSdk.min.js.map"></script>
   <script src="<%= domain %>/javascripts/BoxSdk.min.js"></script>
-  <script src="<%= domain %>/javascripts/users/main.js"></script>
   <script type="text/javascript">
-    var boxAccessToken = '<%= user.boxAccessTokenObject.accessToken %>';
+    var boxAccessToken = '<%= accessTokenInfo.accessToken %>';
     var id_token = '<%= user.id_token %>';
 
     var box = new BoxSdk();
     var boxClient = new box.BasicBoxClient({accessToken: boxAccessToken});
     var boxClientOptionsOnly = new box.BasicBoxClient({accessToken: boxAccessToken, noRequestMode: true});
   </script>
+  <script src="<%= domain %>/javascripts/users/main.js"></script>
   <script src="<%= domain %>/javascripts/users/upload.js"></script>
 
 </body>

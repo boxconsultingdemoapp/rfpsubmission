@@ -3,8 +3,11 @@ let express = require('express');
 let router = express.Router();
 let ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn();
 let AppConfig = require('../config').AppConfig;
+let Auth0Config = require('../config').Auth0Config;
 let BoxConfig = require('../config').BoxConfig;
 let BoxTools = require('../util/BoxTools');
+
+let jwt = require('express-jwt');
 
 function retrieveFolderCollection(folderId, boxAdminApiClient) {
   console.log(folderId);
@@ -230,6 +233,23 @@ router.get('/:root', ensureLoggedIn, function (req, res, next) {
     .catch((err) => {
       console.log(err);
     });
+});
+
+router.use(jwt({
+  secret: new Buffer(Auth0Config.clientSecret, 'base64'),
+  audience: Auth0Config.clientId
+}));
+
+router.post('/metadata', function (req, res, next) {
+	console.log(req.body);
+	  BoxTools.generateUserToken(req.app.locals.BoxSdk, req.user.app_metadata[BoxConfig.boxId])
+    .then(function (accessTokenInfo) {
+      let userClient = req.app.locals.BoxSdk.getBasicClient(accessTokenInfo.accessToken);
+			userClient.files.addMetadata(req.body.fileId, "enterprise", req.body.templateKey, JSON.parse(req.body.body), function(err, response) {
+				console.log(response);
+				res.sendStatus(200);
+			})
+		});
 });
 
 module.exports = router;

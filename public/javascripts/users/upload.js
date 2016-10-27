@@ -18,6 +18,7 @@
       previewsContainer: "#previews", // Define the container to display the previews
       clickable: ".fileinput-button",
       accept: function (file, done) {
+        var rootFolderId = $('#rootFolder').attr('data-id');
         boxClient.files.preflightCheck({ name: file.name, size: file.size, parent: { id: rootFolderId } })
           .then(function (response) {
             if (response.data.upload_url) {
@@ -50,30 +51,19 @@
     boxDropzone.on("addedfile", function (file) {
       // Hookup the start button
       $('#upload-progress-ui').fadeIn(800);
-      file.previewElement.querySelector(".start").onclick = function () { boxDropzone.enqueueFile(file); };
       file.previewElement.querySelector(".delete").onclick = function () {
-        document.querySelector("#total-progress").style.opacity = "0";
         boxDropzone.removeFile(file);
       };
-    });
-    // Update the total progress bar
-    boxDropzone.on("totaluploadprogress", function (progress) {
-      document.querySelector("#total-progress .progress-bar").style.width = progress + "%";
     });
 
     boxDropzone.on("sending", function (file, xhr, formData) {
       var rootFolderId = $('#rootFolder').attr('data-id');
       formData.append('parent_id', rootFolderId);
-      // Show the total progress bar when upload starts
-      document.querySelector("#total-progress").style.opacity = "1";
-      // And disable the start button
-      file.previewElement.querySelector(".start").setAttribute("disabled", "disabled");
     });
 
     // Hide the total progress bar when nothing's uploading anymore
     boxDropzone.on("queuecomplete", function (progress) {
       console.log("Complete");
-      document.querySelector("#total-progress").style.opacity = "0";
       $("#upload-progress-ui").fadeOut(0);
       $('#flashMessage').fadeIn(800).delay(2500).fadeOut(800);
       setTimeout(function () {
@@ -84,25 +74,18 @@
     boxDropzone.on("success", function (file, response, progress) {
       console.log(response);
       console.log(progress);
-      _.templateSettings.variable = "file";
-      var templatePath = DOMAIN + "/javascripts/users/templates/uploadedFile.html";
-
-      $.get(templatePath, function (templateResult) {
-        var returnedFile = response.entries[0];
-        returnedFile.domain = DOMAIN;
-        var nameAndExt = returnedFile.name.split('.');
-        if (nameAndExt.length === 2) {
-          returnedFile.onlyName = nameAndExt[0];
-          returnedFile.extension = nameAndExt[1];
-        }
-        var compiledUploadedFile = _.template(templateResult);
-        var compiledUploadedFileTemplate = compiledUploadedFile(returnedFile);
-        $('#noFiles').hide();
-        $('#fileGroup').append(compiledUploadedFileTemplate);
-        $("#total-progress").fadeOut(1500);
-        $(file.previewElement).fadeOut(1500);
-        $('#flashMessage').append("<li class='list-group-item list-group-item-success'><i class='fa fa-check-circle fa-fw' aria-hidden='true'></i>Successfully uploaded " + file.name + "</li>");
-      });
+      var templateKey = "rfpUploads";
+      var firstName = $('#fullName').attr('data-full-name');
+      var company = $('#companyName').attr('data-company');
+      var fileId = response.entries[0].id;
+      $('#flashMessage').append("<li class='list-group-item list-group-item-success'><i class='fa fa-check-circle fa-fw' aria-hidden='true'></i>Successfully uploaded " + file.name + "</li>");
+      $.ajax(
+        {
+          headers: { "Authorization": "Bearer " + id_token },
+          method: 'POST',
+          url: DOMAIN + '/submit/metadata',
+          data: {fileId: fileId, scope: "enterprise", templateKey: templateKey, body: '{"companyName": "'+ company + '", "firstname": "' + firstName + '"}'}
+        })
     });
 
     boxDropzone.on("removedfile", function (file) {
@@ -124,12 +107,6 @@
     // `clickable` has already been specified.
     document.querySelector("#actions .start").onclick = function () {
       boxDropzone.enqueueFiles(boxDropzone.getFilesWithStatus(Dropzone.ADDED));
-    };
-
-    document.querySelector("#actions .cancel").onclick = function () {
-      boxDropzone.removeAllFiles(true);
-      document.querySelector("#total-progress").style.opacity = "0";
-      $("#upload-progress-ui").fadeOut(0);
     };
   });
 })();
