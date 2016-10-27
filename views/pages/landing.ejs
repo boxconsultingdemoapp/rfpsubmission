@@ -17,7 +17,7 @@
               <tbody>
                 <% landingPageModel.rfpAndParent.forEach(function(obj) { %>
                 <tr>
-                  <td><h5><a href="<%= domain %>/item/<%= obj.parentId %>"><%= obj.name %></a><span class="glyphicon glyphicon-link overview-link"></span></h5>
+                  <td><h4 class="rfpTitles"><a href="<%= domain %>/item/<%= obj.parentId %>"><%= obj.name %></a><span class="glyphicon glyphicon-link overview-link"></span></h4>
                   <p><%= obj.description %></p></td>
                 </tr>
                 <% }); %>
