@@ -20,7 +20,7 @@
           
           <form>
             <div class="form-group">
-              <label for="name">Name</label>
+              <label for="name"><%= user.user_metadata.FullName %></label>
               <br>
               <%= user.nickname %>
               <input type="hidden" class="form-control" id="name" aria-describedby="emailHelp" value="<%= user.nickname %>">
