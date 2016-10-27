@@ -59,21 +59,48 @@ a.no-decoration, a.no-decoration:hover {
   }
 }
 
+@media (min-width: 768px) {
+.navbar-form {
+  padding-top:5px;
+}
+}
+
 /* navbar */
 .navbar-default {
     background-color: #1992d4;
     border-color: #157cb5;
     font-family: 'Lato', sans-serif;
-
 }
+
 /* title */
 .navbar-default .navbar-brand {
     color: #fff;
 }
+
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
     color: #fff;
 }
+
+.navbar-brand {
+    float: left;
+    height: 60px;
+    padding: 10px 120px 5px 25px;
+    font-size: 18px;
+    line-height: 20px;
+}
+
+.navbar-form .form-control {
+  vertical-align: middle;
+  border-radius: 2px;
+}
+
+.navbar-default .logout-link {
+  padding-right: 50px;
+  padding-top: 20px;
+  color: #fff !important;
+}
+
 
 .iframe-box {
   height: 1020px;

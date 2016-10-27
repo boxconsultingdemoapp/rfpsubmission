@@ -1,16 +1,14 @@
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="#">Box</a></div>
-		<div id="navbar" class="navbar-collapse collapse">
-			<ul class="nav navbar-nav navbar-right">
-<!--             <li><a href="#">My files</a></li>
-				<li><a href="#">Upload file</a></li> -->
-				<li><a href="#">Log out</a></li>
-			</ul>
-			<form class="navbar-form navbar-left">
+			<a class="navbar-brand" href="<%= domain %>/landing"><img alt="Brand" src="<%= domain %>/images/BidBoxLogoWhite.png"></a></div>
+		<div>
+			<form class="navbar-form navbar-left search-bar">
 				<input type="text" class="form-control" placeholder="Search...">
 			</form>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a class="logout-link" href="#">Log out</a></li>
+			</ul>
 		</div>
 	</div>
 </nav>
