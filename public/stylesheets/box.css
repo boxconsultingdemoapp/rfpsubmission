@@ -63,19 +63,21 @@ a.no-decoration, a.no-decoration:hover {
 .navbar-default {
     background-color: #1992d4;
     border-color: #157cb5;
+    font-family: 'Lato', sans-serif;
+
 }
 /* title */
 .navbar-default .navbar-brand {
-    color: #777;
+    color: #fff;
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
-    color: #5E5E5E;
+    color: #fff;
 }
 
 .iframe-box {
-  height: 500px;
-  margin-top: 50px;
+  height: 1020px;
+  padding-top: 10px;
 }
 
 .download-button {
@@ -156,3 +158,7 @@ tr a {
 .navText {
   vertical-align: middle;
 }
+
+
+
+
