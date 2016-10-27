@@ -8,12 +8,15 @@ router.get('/:id', function (req, res, next) {
 	let pdf;
 	let parent;
 	let createdAt;
+	let parentName;
 	req.app.locals.boxAdminApiClient.folders.get(folderId, {fields: "size,item_collection,name,created_at,parent"}, function (err, folder) {
 		console.log(folder);
 		createdAt = formatDate(new Date(folder.created_at));
 		if (folder && folder.item_collection && folder.item_collection.total_count && folder.item_collection.total_count > 0) {
 			if (folder.parent && folder.parent.id) {
 				parent = folder.parent.id;
+				parentName = folder.parent.name;
+				parentName = parentName.replace(' External','');
 			}
 			let packages = folder.item_collection.entries.filter((item) => {
 				console.log(item);
@@ -28,7 +31,7 @@ router.get('/:id', function (req, res, next) {
 				}
 			});
 			req.app.locals.boxAdminApiClient.files.get(pdf.id, { fields: 'expiring_embed_link' }, function (err, data) {
-				res.render('pages/overview', { title: "Box Platform", createdAt: createdAt, domain: AppConfig.domain, packages: packages, pdf: pdf, previewLink: data.expiring_embed_link.url, parentId: parent });
+				res.render('pages/overview', { title: "Box Platform", name: parentName, createdAt: createdAt, domain: AppConfig.domain, packages: packages, pdf: pdf, previewLink: data.expiring_embed_link.url, parentId: parent });
 			});
 		} else {
 			// res.redirect('/landing');
