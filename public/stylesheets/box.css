@@ -1,3 +1,7 @@
+body {
+  padding-top: 70px;
+}
+
 #folders {
   border-right: 2px solid #999;
 }

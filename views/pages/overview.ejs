@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<% include ../partials/head %>
+</head>
+
+<body>
+
+	<% include ../partials/nav %>
+
+	 <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3">
+ 
+	<h1 class="sub-header"><%= title %> Overview</h1>
+	<div class="table-responsive">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th width="60%">File Name</th>
+					<th width="25%">Updated</th>
+					<th width="15%">Size</th>
+				</tr>
+		 	</thead>
+			<tbody>
+				<tr>
+			  		<td><strong>package1.zip</strong></td>
+			  		<td>Today</td>
+			  		<td>5 mb</td>
+			  		<td><button class="btn btn-default btn-sm" type="submit"><span class="glyphicon glyphicon-download"></span></button></td>
+				</tr>
+				<tr>
+			  		<td><strong>package2.zip</strong></td>
+			  		<td>Today</td>
+			  		<td>35 mb</td>
+			  		<td><button class="btn btn-default btn-sm" type="submit"><span class="glyphicon glyphicon-download"></span></button></td>
+				</tr>
+				<tr>
+			  		<td><strong>package3.zip</strong></td>
+			  		<td>Today</td>
+			  		<td>16 mb</td>
+			  		<td><button class="btn btn-default btn-sm" type="submit"><span class="glyphicon glyphicon-download"></span></button></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</body>
