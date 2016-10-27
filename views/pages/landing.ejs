@@ -15,25 +15,12 @@
           <div class="table-responsive">
             <table class="table table-hover">
               <tbody>
+                <% landingPageModel.rfpAndParent.forEach(function(obj) { %>
                 <tr>
-                  <td><h5><a href="#">HVAC Demo and Replacement - El Paso Gateway</a><span class="glyphicon glyphicon-link overview-link"></span></h5>
-                  <p>Req. Number: 405-17-B002391, Open Date(Submit By): 2016-11-17 13:00:00.0, Agency Number: 405, Creation Date: 2016-10-26 15:38:02.037, Last Update: 2016-10-26 15:38:02.037, Class-Item: 910 - 36</p></td>
+                  <td><h5><a href="<%= domain %>/item/<%= obj.parentId %>"><%= obj.name %></a><span class="glyphicon glyphicon-link overview-link"></span></h5>
+                  <p><%= obj.description %></p></td>
                 </tr>
-                <tr>
-                  <td><h5><a href="#">General Archeological Services (577SA001-2659)</a><span class="glyphicon glyphicon-link overview-link"></span></h5><p>Req. Number: 405-17-B002391, Open Date(Submit By): 2016-11-17 13:00:00.0, Agency Number: 405, Creation Date: 2016-10-26 15:38:02.037, Last Update: 2016-10-26 15:38:02.037, Class-Item: 910 - 36</p></td>
-                </tr>
-                <tr>
-                  <td><h5><a href="#">Transmission Electron Microscope</a><span class="glyphicon glyphicon-link overview-link"></span></h5><p>Req. Number: 405-17-B002391, Open Date(Submit By): 2016-11-17 13:00:00.0, Agency Number: 405, Creation Date: 2016-10-26 15:38:02.037, Last Update: 2016-10-26 15:38:02.037, Class-Item: 910 - 36</p></td>
-                </tr>
-                <tr>
-                  <td><h5><a href="#">The University of Texas at Austin - Creekside Residence Hall</a><span class="glyphicon glyphicon-link overview-link"></span></h5><p>Req. Number: 405-17-B002391, Open Date(Submit By): 2016-11-17 13:00:00.0, Agency Number: 405, Creation Date: 2016-10-26 15:38:02.037, Last Update: 2016-10-26 15:38:02.037, Class-Item: 910 - 36</p></td>
-                </tr>
-                <tr>
-                  <td><h5><a href="#">DM FY16 PE Replace AHU #30 and Any Related Work (PP-21608070)</a><span class="glyphicon glyphicon-link overview-link"></span></h5><p>Req. Number: 405-17-B002391, Open Date(Submit By): 2016-11-17 13:00:00.0, Agency Number: 405, Creation Date: 2016-10-26 15:38:02.037, Last Update: 2016-10-26 15:38:02.037, Class-Item: 910 - 36</p></td>
-                </tr>
-                <tr>
-                  <td><h5><a href="#">LOCAL LET MAINTENANCE CONTRACT, WEBB CO, INSTALL TRAFFIC SIGNALS, FLASHING BEACONS, PVT MAR</a><span class="glyphicon glyphicon-link overview-link"></span></h5><p>Req. Number: 405-17-B002391, Open Date(Submit By): 2016-11-17 13:00:00.0, Agency Number: 405, Creation Date: 2016-10-26 15:38:02.037, Last Update: 2016-10-26 15:38:02.037, Class-Item: 910 - 36</p></td>
-                </tr>
+                <% }); %>
               </tbody>
             </table>
           </div>

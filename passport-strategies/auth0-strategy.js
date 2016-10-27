@@ -13,7 +13,7 @@ let strategy = new Auth0Strategy({
     // accessToken is the token to call Auth0 API (not needed in the most cases)
     // extraParams.id_token has the JSON Web Token
     // profile has all the information from the user
-    profile = Auth0Tools.normalizeAppMetadata(profile);
+    profile = Auth0Tools.normalizeMetadata(profile);
     profile.id_token = extraParams.id_token;
     return done(null, profile);
   });

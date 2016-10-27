@@ -74,7 +74,7 @@ app.use('/user', users);
 app.use('/token', userToken);
 app.use('/files', fileRoute);
 app.use('/landing', landingRoute);
-app.use('/overview', overviewRoute);
+app.use('/item', overviewRoute);
 app.use('/submit', submitRoute);
 
 // catch 404 and forward to error handler

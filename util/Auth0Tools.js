@@ -17,11 +17,15 @@ let authentication = new AuthenticationClient({
 let Auth0Tools = function () { };
 
 // Used to normalize a weird JSON structure in Auth0's response
-Auth0Tools.prototype.normalizeAppMetadata = function (profile) {
+Auth0Tools.prototype.normalizeMetadata = function (profile) {
   if ('_json' in profile && 'app_metadata' in profile._json && BoxConfig.boxId in profile._json.app_metadata) {
     console.log("Normalizing user object...");
     profile.app_metadata = {};
     profile.app_metadata[BoxConfig.boxId] = profile._json.app_metadata[BoxConfig.boxId];
+  }
+  if ('_json' in profile && 'user_metadata' in profile._json) {
+    console.log("Normalizing user object...");
+    profile.user_metadata = profile._json.user_metadata;
   }
   return profile;
 }

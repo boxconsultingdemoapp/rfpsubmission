@@ -61,8 +61,12 @@ router.get('/callback',
           return BoxTools.setupForNewAppUser(userClient, testFileName, testFilePath, testFolderName);
         })
         .then(function (fileData) {
-          console.log("Redirecting to user page...");
-          res.redirect('/user');
+          console.log("Redirecting...");
+          if (req.session.returnTo) {
+            res.redirect(req.session.returnTo);
+          } else {
+            res.redirect('/landing');
+          }
         })
         .catch(function (err) {
           res.render('pages/error', {
@@ -76,7 +80,11 @@ router.get('/callback',
         .then(function (accessTokenInfo) {
           req.user.boxAccessTokenObject = accessTokenInfo;
           console.log(accessTokenInfo);
-          res.redirect('/user');
+          if (req.session.returnTo) {
+            res.redirect(req.session.returnTo);
+          } else {
+            res.redirect('/landing');
+          }
         })
         .catch(function (err) {
           res.render('pages/error', {
