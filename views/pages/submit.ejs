@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<% include ../partials/head %>
+</head>
+
+<body>
+
+	<% include ../partials/nav %>
+
+      <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3">
+     
+          <h1 class="sub-header">
+            <%= rfpName %> Submission
+          </h1>
+          <br>
+          
+          <form>
+            <div class="form-group">
+              <label for="name">Name</label>
+              <br>
+              <%= user.nickname %>
+              <input type="hidden" class="form-control" id="name" aria-describedby="emailHelp" value="<%= user.nickname %>">
+            </div>
+            <div class="form-group">
+              <label for="company">Company</label>
+              <input type="text" class="form-control" id="company" value="<%= companyName %>">
+            </div>
+            <div class="form-group">
+              <label for="primaryContactEmail">Primary Contact Email</label>
+              <input type="email" class="form-control" id="primaryContactEmail" value="<%= user.displayName %>">
+            </div>
+
+            <br>
+
+            <label for="uploadedFiles">Submit files to the RFP:</label>
+            <div id="box-explorer" class="fluid-container">
+              <div class="row">
+                <%- include ../partials/upload-commands.ejs %>
+              </div>
+            </div>
+            <div id="box-upload" class="fluid-container">
+              <div class="row">
+                <%- include ../partials/upload-progress.ejs %>
+              </div>
+            </div>
+
+
+            <button type="submit" class="btn btn-primary btn-lg pull-right">Submit</button>
+          </form>
+
+        </div>
+
+
+          <%- include ../partials/scripts %>
+  <script src="<%= domain %>/javascripts/BoxSdk.min.js.map"></script>
+  <script src="<%= domain %>/javascripts/BoxSdk.min.js"></script>
+  <script src="<%= domain %>/javascripts/users/main.js"></script>
+  <script src="<%= domain %>/javascripts/users/upload.js"></script>
+  <script type="text/javascript">
+    var boxAccessToken = '<%= user.boxAccessTokenObject.accessToken %>';
+    var id_token = '<%= user.id_token %>';
+
+    function returnNewAccessToken(cb) {
+      $.ajax({
+        url: "http://localhost:3000/token",
+        method: "GET",
+        headers: { "Authorization": "Bearer " + id_token },
+        dataType: 'json',
+        contentType: 'application/json; charset=UTF-8'
+      })
+        .done(function (data) {
+          console.log(data);
+          cb(null, data);
+        });
+    }
+
+    var box = new BoxSdk();
+    var boxClient = new box.PersistentBoxClient({accessTokenHandler: returnNewAccessToken, isCallback: true});
+    var boxClientOptionsOnly = new box.PersistentBoxClient({accessTokenHandler: returnNewAccessToken, isCallback: true, noRequestMode: true});
+  </script>
+
+</body>
+</html>

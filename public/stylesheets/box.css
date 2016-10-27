@@ -112,3 +112,16 @@ tr:hover .download-button {
   background-color: #1992d4;
   border-color: #1992d4;
 }
+
+#dragDropUpload {
+    font-size: 75px;
+    padding-bottom: 10px;
+}
+
+#dragDropZone {
+  padding: 10px 0px 20px;
+  margin: 10px 15px;
+  border-style: dashed;
+  border-color: #999;
+  border-radius: 5px;
+}

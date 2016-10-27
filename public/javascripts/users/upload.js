@@ -19,7 +19,7 @@
           previewsContainer: "#previews", // Define the container to display the previews
           clickable: ".fileinput-button",
           accept: function (file, done) {
-            var rootFolderId = $('#rootFolder').attr('data-id');
+            var rootFolderId = '0'; //Previously: '$('#rootFolder').attr('data-id')'
             boxClient.files.preflightCheck({ name: file.name, size: file.size, parent: { id: rootFolderId } })
               .then(function (response) {
                 if (response.data.upload_url) {
@@ -67,7 +67,7 @@
         });
 
         boxDropzone.on("sending", function (file, xhr, formData) {
-          var rootFolderId = $('#rootFolder').attr('data-id');
+          var rootFolderId = '0'; //Previously: '$('#rootFolder').attr('data-id')'
           formData.append('parent_id', rootFolderId);
           // Show the total progress bar when upload starts
           document.querySelector("#total-progress").style.opacity = "1";

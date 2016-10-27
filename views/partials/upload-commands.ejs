@@ -1,26 +1,14 @@
-<h4 id="openUpload"><i id="uploadOpenOrClosed" class="fa fa-caret-right fa-lg fa-fw" aria-hidden="true"></i>Upload files to the current folder</h4>
-<div id="upload-ui" class="container-fluid">
-  <div class="row">
-    <div id="actions" class="col-md-12">
-      <span class="btn btn-success fileinput-button">
-        <i class="glyphicon glyphicon-plus"></i>
-        <span>Add files...</span>
-      </span>
-      <button type="submit" class="btn btn-primary start">
-        <i class="glyphicon glyphicon-upload"></i>
-        <span>Start upload</span>
-      </button>
-      <button type="reset" class="btn btn-warning cancel">
-        <i class="glyphicon glyphicon-ban-circle"></i>
-        <span>Cancel upload</span>
-      </button>
-    </div>
-  </div>
-  <hr>
+<div class="text-center" id="dragDropZone">
+  <h4>
+    <span class="glyphicon glyphicon-upload" id="dragDropUpload" aria-hidden="true"></span><br>
+    Drag and drop files to upload
+  </h4>
+  or <a class="fileinput-button" href="#">pick from file browser</a>
+</div>
+
     <!-- The global file processing state -->
   <div class="fileupload-process">
     <div id="total-progress" class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
       <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
     </div>
   </div>
-</div>

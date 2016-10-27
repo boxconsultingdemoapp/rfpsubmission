@@ -22,6 +22,7 @@ let userToken = require('./routes/userToken');
 let fileRoute = require('./routes/file');
 let landingRoute = require('./routes/landing');
 let overviewRoute = require('./routes/overview');
+let submitRoute = require('./routes/submit');
 
 let app = express();
 
@@ -74,6 +75,7 @@ app.use('/token', userToken);
 app.use('/files', fileRoute);
 app.use('/landing', landingRoute);
 app.use('/overview', overviewRoute);
+app.use('/submit', submitRoute);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
