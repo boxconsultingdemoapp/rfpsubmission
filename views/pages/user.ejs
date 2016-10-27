@@ -77,22 +77,8 @@
     var boxAccessToken = '<%= user.boxAccessTokenObject.accessToken %>';
     var id_token = '<%= user.id_token %>';
 
-    function returnNewAccessToken(cb) {
-      $.ajax({
-        url: "http://localhost:3000/token",
-        method: "GET",
-        headers: { "Authorization": "Bearer " + id_token },
-        dataType: 'json',
-        contentType: 'application/json; charset=UTF-8'
-      })
-        .done(function (data) {
-          console.log(data);
-          cb(null, data);
-        });
-    }
-
     var box = new BoxSdk();
-    var boxClient = new box.PersistentBoxClient({accessTokenHandler: returnNewAccessToken, isCallback: true});
+    var boxClient = new box.B({accessTokenHandler: returnNewAccessToken, isCallback: true});
     var boxClientOptionsOnly = new box.PersistentBoxClient({accessTokenHandler: returnNewAccessToken, isCallback: true, noRequestMode: true});
   </script>
 </body>
