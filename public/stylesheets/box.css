@@ -125,3 +125,12 @@ tr:hover .download-button {
   border-color: #999;
   border-radius: 5px;
 }
+
+.smaller {
+  font-size: 15px;
+  padding: 0px 5px;
+}
+
+.navText {
+  vertical-align: middle;
+}
