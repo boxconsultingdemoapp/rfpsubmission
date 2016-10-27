@@ -9,39 +9,64 @@
 
 	<% include ../partials/nav %>
 
-	 <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3">
- 
-	<h1 class="sub-header"><%= title %> Overview</h1>
-	<div class="table-responsive">
-		<table class="table table-hover">
-			<thead>
-				<tr>
-					<th width="60%">File Name</th>
-					<th width="25%">Updated</th>
-					<th width="15%">Size</th>
-				</tr>
-		 	</thead>
-			<tbody>
-				<tr>
-			  		<td><strong>package1.zip</strong></td>
-			  		<td>Today</td>
-			  		<td>5 mb</td>
-			  		<td><button class="btn btn-default btn-sm" type="submit"><span class="glyphicon glyphicon-download"></span></button></td>
-				</tr>
-				<tr>
-			  		<td><strong>package2.zip</strong></td>
-			  		<td>Today</td>
-			  		<td>35 mb</td>
-			  		<td><button class="btn btn-default btn-sm" type="submit"><span class="glyphicon glyphicon-download"></span></button></td>
-				</tr>
-				<tr>
-			  		<td><strong>package3.zip</strong></td>
-			  		<td>Today</td>
-			  		<td>16 mb</td>
-			  		<td><button class="btn btn-default btn-sm" type="submit"><span class="glyphicon glyphicon-download"></span></button></td>
-				</tr>
-			</tbody>
-		</table>
+<div class="row">
+	<div class="col-sm-6 col-sm-offset-3 col-md-8 col-md-offset-2">
+ 		
+ 		<div class="row">
+ 			<div class="col-md-8">
+ 				<h1 class="sub-header"><%= title %> Overview</h1>
+ 			</div>
+ 		</div>
+		
+
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th width="50%">File Name</th>
+						<th width="25%">Updated</th>
+						<th width="15%">Size</th>
+						<th width="10%"></th>
+					</tr>
+			 	</thead>
+				<tbody>
+					<tr class="file-row">
+				  		<td>package1.zip</td>
+				  		<td>Today</td>
+				  		<td>5 mb</td>
+				  		<td><button class="btn btn-default btn-sm download-button pull-right" type="submit"><span class="glyphicon glyphicon-download"></span></button></td>
+					</tr>
+					<tr class="file-row">
+				  		<td>package2.zip</td>
+				  		<td>Today</td>
+				  		<td>35 mb</td>
+				  		<td><button class="btn btn-default btn-sm download-button pull-right" type="submit"><span class="glyphicon glyphicon-download"></span></button></td>
+					</tr>
+					<tr class="file-row">
+				  		<td>package3.zip</td>
+				  		<td>Today</td>
+				  		<td>16 mb</td>
+				  		<td><button class="btn btn-default btn-sm download-button pull-right" type="submit"><span class="glyphicon glyphicon-download"></span></button></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6 col-md-offset-6">
+				<p class="pull-right">
+					<button class="btn btn-default" type="submit">Download All Files</button>
+					<button class="btn btn-default btn-primary" type="submit">Apply</button>
+				</p>
+			</div>
+		</div>
+
 	</div>
+</div>
+
+
+<div class="row">
+	<div class="col-md-8 col-md-offset-2 iframe-box"></div>
+</div>
 
 </body>
