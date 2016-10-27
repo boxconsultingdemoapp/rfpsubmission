@@ -31,7 +31,7 @@ function traverseFolders(folderEntries, boxAdminApiClient) {
         if (response && response.TYPE === 'RFP_SUBMISSIONS') {
           console.log(response);
           resolve(item);
-        } else {
+        } else if(item.name.toLowerCase().includes("external")) {
           resolve(null);
         }
       });
@@ -171,8 +171,8 @@ router.get('/:root', ensureLoggedIn, function (req, res, next) {
   let boxAdminApiClient = req.app.locals.boxAdminApiClient;
   let submissionFolder;
   let boxId;
-
   let company;
+
   if (req.user && req.user.app_metadata && req.user.app_metadata[BoxConfig.boxId] && req.user.user_metadata && req.user.user_metadata.Company) {
     boxId = req.user.app_metadata[BoxConfig.boxId];
     company = req.user.user_metadata.Company;
@@ -215,13 +215,15 @@ router.get('/:root', ensureLoggedIn, function (req, res, next) {
       }
       return BoxTools.generateUserToken(req.app.locals.BoxSdk, boxId)
         .then((accessTokenInfo) => {
+					let values = response.name.split(company);
+					let rfpName = (values.length > 0) ? values[0] : "unknown";
           res.render('pages/submit', {
             title: "Placeholder RFP Name Submission",
             domain: AppConfig.domain,
             accessTokenInfo: accessTokenInfo,
             user: req.user,
             submissionFolder: response.id,
-						rfpName: "HARDCODED"
+						rfpName: rfpName
           });
         });
     })
