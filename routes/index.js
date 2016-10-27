@@ -22,10 +22,7 @@ var loginEnv = {
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  if (req.user) {
-    res.redirect('/user');
-  }
-  res.render('pages/login', { title: "Box Platform", env: loginEnv, domain: AppConfig.domain });
+  res.redirect('/landing')
 });
 
 router.get('/login',

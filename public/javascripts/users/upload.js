@@ -1,5 +1,10 @@
 (function () {
   $(document).ready(function () {
+    var templateKey = "rfpUploads";
+    var firstName = $('#firstName').attr('data-first-name');
+    var lastName = $('#lastName').attr('data-last-name');
+    var contact = $('#contact-address').attr('data-contact-address');
+    var company = $('#companyName').attr('data-company');
 
     var previewNode = document.querySelector("#template");
     previewNode.id = "";
@@ -74,9 +79,6 @@
     boxDropzone.on("success", function (file, response, progress) {
       console.log(response);
       console.log(progress);
-      var templateKey = "rfpUploads";
-      var firstName = $('#fullName').attr('data-full-name');
-      var company = $('#companyName').attr('data-company');
       var fileId = response.entries[0].id;
       $('#flashMessage').append("<li class='list-group-item list-group-item-success'><i class='fa fa-check-circle fa-fw' aria-hidden='true'></i>Successfully uploaded " + file.name + "</li>");
       $.ajax(
@@ -84,7 +86,15 @@
           headers: { "Authorization": "Bearer " + id_token },
           method: 'POST',
           url: DOMAIN + '/submit/metadata',
-          data: {fileId: fileId, scope: "enterprise", templateKey: templateKey, body: '{"companyName": "'+ company + '", "firstname": "' + firstName + '"}'}
+          data: {
+            fileId: fileId,
+            scope: "enterprise",
+            templateKey: templateKey,
+            companyName: company,
+            firstname: firstName,
+            lastname: lastName,
+            contact: contact
+          }
         })
     });
 

@@ -34,7 +34,7 @@ function traverseFolders(folderEntries, boxAdminApiClient) {
         if (response && response.TYPE === 'RFP_SUBMISSIONS') {
           console.log(response);
           resolve(item);
-        } else if(item.name.toLowerCase().includes("external")) {
+        } else if (item.name.toLowerCase().includes("external")) {
           resolve(null);
         }
       });
@@ -218,15 +218,16 @@ router.get('/:root', ensureLoggedIn, function (req, res, next) {
       }
       return BoxTools.generateUserToken(req.app.locals.BoxSdk, boxId)
         .then((accessTokenInfo) => {
-					let values = response.name.split(company);
-					let rfpName = (values.length > 0) ? values[0] : "unknown";
+          let values = response.name.split(company);
+          let rfpName = (values.length > 0) ? values[0] : "unknown";
+          console.log(req.user);
           res.render('pages/submit', {
             title: "Placeholder RFP Name Submission",
             domain: AppConfig.domain,
             accessTokenInfo: accessTokenInfo,
             user: req.user,
             submissionFolder: response.id,
-						rfpName: rfpName
+            rfpName: rfpName
           });
         });
     })
@@ -241,15 +242,22 @@ router.use(jwt({
 }));
 
 router.post('/metadata', function (req, res, next) {
-	console.log(req.body);
-	  BoxTools.generateUserToken(req.app.locals.BoxSdk, req.user.app_metadata[BoxConfig.boxId])
+  console.log(req.body);
+  BoxTools.generateUserToken(req.app.locals.BoxSdk, req.user.app_metadata[BoxConfig.boxId])
     .then(function (accessTokenInfo) {
       let userClient = req.app.locals.BoxSdk.getBasicClient(accessTokenInfo.accessToken);
-			userClient.files.addMetadata(req.body.fileId, "enterprise", req.body.templateKey, JSON.parse(req.body.body), function(err, response) {
-				console.log(response);
-				res.sendStatus(200);
-			})
-		});
+      userClient.files.addMetadata(req.body.fileId, "enterprise", req.body.templateKey, 
+      { 
+        companyName: req.body.companyName, 
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        contact: req.body.contact 
+      }, function (err, response) {
+        console.log(err);
+        console.log(response);
+        res.sendStatus(200);
+      })
+    });
 });
 
 module.exports = router;
