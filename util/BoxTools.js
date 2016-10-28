@@ -25,19 +25,19 @@ BoxTools.prototype.createNewAppUser = function (boxAdminClient, displayName) {
 BoxTools.prototype.generateUserToken = (BoxSdk, boxId) => {
   let finalAccessToken;
   return new Promise((resolve, reject) => {
-    return BoxRedis.getBoxToken(boxId)
+    BoxRedis.getBoxToken(boxId)
       .then((accessTokenFromStorage) => {
         if (accessTokenFromStorage && accessTokenFromStorage[BoxConfig.expiresAt] && accessTokenFromStorage[BoxConfig.expiresAt] > Date.now()) {
           console.log("Found Box App User Token in Redis...");
           resolve(accessTokenFromStorage);
         } else {
-          return BoxSdk.getAppUserTokens(boxId, (err, accessTokenInfo) => {
+          BoxSdk.getAppUserTokens(boxId, (err, accessTokenInfo) => {
             if (err) { reject(err) }
             console.log("Setting access token...");
             console.log(accessTokenInfo);
             finalAccessToken = createExpiresAtProp(accessTokenInfo);
             let expiryTimeInSeconds = getExpirationTimeForRedis(finalAccessToken);
-            return BoxRedis.setBoxToken(boxId, finalAccessToken, expiryTimeInSeconds)
+            BoxRedis.setBoxToken(boxId, finalAccessToken, expiryTimeInSeconds)
               .then(() => {
                 console.log("Setting Box App User Token in Redis...");
                 resolve(finalAccessToken);

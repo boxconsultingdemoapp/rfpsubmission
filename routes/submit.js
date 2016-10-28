@@ -236,28 +236,4 @@ router.get('/:root', ensureLoggedIn, function (req, res, next) {
     });
 });
 
-router.use(jwt({
-  secret: new Buffer(Auth0Config.clientSecret, 'base64'),
-  audience: Auth0Config.clientId
-}));
-
-router.post('/metadata', function (req, res, next) {
-  console.log(req.body);
-  BoxTools.generateUserToken(req.app.locals.BoxSdk, req.user.app_metadata[BoxConfig.boxId])
-    .then(function (accessTokenInfo) {
-      let userClient = req.app.locals.BoxSdk.getBasicClient(accessTokenInfo.accessToken);
-      userClient.files.addMetadata(req.body.fileId, "enterprise", "rfpUploads", 
-      { 
-        companyName: req.body.companyName, 
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        contact: req.body.contact 
-      }, function (err, response) {
-        console.log(err);
-        console.log(response);
-        res.sendStatus(200);
-      })
-    });
-});
-
 module.exports = router;

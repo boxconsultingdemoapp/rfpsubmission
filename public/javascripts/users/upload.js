@@ -83,18 +83,18 @@
       $('#flashMessage').append("<li class='list-group-item list-group-item-success'><i class='fa fa-check-circle fa-fw' aria-hidden='true'></i>Successfully uploaded " + file.name + "</li>");
       $.ajax(
         {
-          headers: { "Authorization": "Bearer " + id_token },
+          headers: { 
+            "Authorization": "Bearer " +  boxAccessToken,
+            "Content-Type": "application/json"
+          },
           method: 'POST',
-          url: DOMAIN + '/submit/metadata',
-          data: {
-            fileId: fileId,
-            scope: "enterprise",
-            templateKey: templateKey,
+          url: "https://api.box.com/2.0/files/" + fileId + "/metadata/enterprise/" + templateKey,
+          data: JSON.stringify({
             companyName: company,
             firstname: firstName,
             lastname: lastName,
             contact: contact
-          }
+          })
         })
         .success(function(response) {
           console.log(response);
