@@ -96,6 +96,9 @@
             contact: contact
           }
         })
+        .success(function(response) {
+          console.log(response);
+        });
     });
 
     boxDropzone.on("removedfile", function (file) {

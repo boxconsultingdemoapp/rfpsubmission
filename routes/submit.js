@@ -246,7 +246,7 @@ router.post('/metadata', function (req, res, next) {
   BoxTools.generateUserToken(req.app.locals.BoxSdk, req.user.app_metadata[BoxConfig.boxId])
     .then(function (accessTokenInfo) {
       let userClient = req.app.locals.BoxSdk.getBasicClient(accessTokenInfo.accessToken);
-      userClient.files.addMetadata(req.body.fileId, "enterprise", req.body.templateKey, 
+      userClient.files.addMetadata(req.body.fileId, "enterprise", "rfpUploads", 
       { 
         companyName: req.body.companyName, 
         firstname: req.body.firstname,
