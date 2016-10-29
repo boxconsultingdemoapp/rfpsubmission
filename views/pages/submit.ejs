@@ -68,6 +68,7 @@
           <%- include ../partials/scripts %>
   <script src="<%= domain %>/javascripts/BoxSdk.min.js.map"></script>
   <script src="<%= domain %>/javascripts/BoxSdk.min.js"></script>
+  <script src="<%= domain %>/javascripts/users/upload.js"></script>
   <script type="text/javascript">
     var boxAccessToken = '<%= accessTokenInfo.accessToken %>';
     var id_token = '<%= user.id_token %>';
@@ -76,8 +77,6 @@
     var boxClient = new box.BasicBoxClient({accessToken: boxAccessToken});
     var boxClientOptionsOnly = new box.BasicBoxClient({accessToken: boxAccessToken, noRequestMode: true});
   </script>
-  <script src="<%= domain %>/javascripts/users/main.js"></script>
-  <script src="<%= domain %>/javascripts/users/upload.js"></script>
 
 </body>
 </html>

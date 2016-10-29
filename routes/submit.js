@@ -175,6 +175,7 @@ router.get('/:root', ensureLoggedIn, function (req, res, next) {
   let submissionFolder;
   let boxId;
   let company;
+  let rfpName;
 
   if (req.user && req.user.app_metadata && req.user.app_metadata[BoxConfig.boxId] && req.user.user_metadata && req.user.user_metadata.Company) {
     boxId = req.user.app_metadata[BoxConfig.boxId];
@@ -216,24 +217,25 @@ router.get('/:root', ensureLoggedIn, function (req, res, next) {
       if (response && response.item) {
         response = response.item;
       }
-      return BoxTools.generateUserToken(req.app.locals.BoxSdk, boxId)
-        .then((accessTokenInfo) => {
-          let values = response.name.split(company);
-          let rfpName = (values.length > 0) ? values[0] : "unknown";
-          console.log(req.user);
-          res.render('pages/submit', {
-            title: "Placeholder RFP Name Submission",
-            domain: AppConfig.domain,
-            accessTokenInfo: accessTokenInfo,
-            user: req.user,
-            submissionFolder: response.id,
-            rfpName: rfpName
-          });
-        });
+      let values = response.name.split(company);
+      rfpName = (values.length > 0) ? values[0] : "unknown";
+      submissionFolder = response.id;
+      return BoxTools.generateUserToken(req.app.locals.BoxSdk, boxId);
+    })
+    .then((accessTokenInfo) => {
+      console.log(req.user);
+      res.render('pages/submit', {
+        title: "Placeholder RFP Name Submission",
+        domain: AppConfig.domain,
+        accessTokenInfo: accessTokenInfo,
+        user: req.user,
+        submissionFolder: submissionFolder,
+        rfpName: rfpName
+      });
     })
     .catch((err) => {
-      console.log(err);
-    });
+    console.log(err);
+  });
 });
 
 module.exports = router;
