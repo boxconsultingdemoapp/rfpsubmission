@@ -21,11 +21,11 @@
         },
         {
           name: "FirstName",
-          placeholder: "Please enter your first name"     
+          placeholder: "Please enter your first name"
         },
         {
           name: "LastName",
-          placeholder: "Please enter your last name"     
+          placeholder: "Please enter your last name"
         }
       ],
       auth: {
@@ -34,7 +34,14 @@
         params: {
           scope: 'openid email user_metadata app_metadata picture'
         }
-      }
+      },
+			theme: {
+				 logo: '',
+				 primaryColor: '#31324F'
+			 },
+			 languageDictionary: {
+				 title: "Your Account"
+			 }
     });
     lock.show();
   </script>
