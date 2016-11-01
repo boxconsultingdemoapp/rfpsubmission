@@ -83,8 +83,8 @@
       $('#flashMessage').append("<li class='list-group-item list-group-item-success'><i class='fa fa-check-circle fa-fw' aria-hidden='true'></i>Successfully uploaded " + file.name + "</li>");
       $.ajax(
         {
-          headers: { 
-            "Authorization": "Bearer " +  boxAccessToken,
+          headers: {
+            "Authorization": "Bearer " + boxAccessToken,
             "Content-Type": "application/json"
           },
           method: 'POST',
@@ -96,8 +96,9 @@
             contact: contact
           })
         })
-        .success(function(response) {
+        .success(function (response) {
           console.log(response);
+          $(file.previewElement).fadeOut(1500);
         });
     });
 

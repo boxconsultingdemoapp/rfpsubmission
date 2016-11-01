@@ -3,7 +3,7 @@
     $(document).on('click', '.folder', function () {
       var self = this;
       var folderId = $(this).attr('data-id');
-      window.location.href = DOMAIN + "/user/" + folderId;
+      // window.location.href = DOMAIN + "/user/" + folderId;
     });
 
     $(document).on('click', '.folder-menu', function () {

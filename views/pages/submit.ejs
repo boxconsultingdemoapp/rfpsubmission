@@ -22,7 +22,7 @@
           </h3>
           <br>
           
-          <form>
+          <div>
             <div class="form-group">
               <label for="name"><%= user.user_metadata.FullName %></label>
               <br>
@@ -51,16 +51,11 @@
                 <%- include ../partials/upload-commands.ejs %>
               </div>
             </div>
-            <div id="box-upload" class="fluid-container">
-              <div class="row">
-                <%- include ../partials/upload-progress.ejs %>
-              </div>
-            </div>
-
+            <%- include ../partials/upload-progress.ejs %>
             <div id="actions">
               <button type="submit" class="start btn btn-primary btn-lg pull-right">Submit</button>
             </div>
-          </form>
+          </div>
 
         </div>
 
