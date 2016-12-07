@@ -4,14 +4,14 @@ let passport = require('passport');
 let ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn();
 let router = express.Router();
 
-let AppConfig = require('../config').AppConfig;
-let Auth0Config = require('../config').Auth0Config;
-let BoxConfig = require('../config').BoxConfig;
+// require env + user models
+require('dotenv').config();
+
 let loginEnv = {
-  AUTH0_CLIENT_ID: Auth0Config.clientId,
-  AUTH0_DOMAIN: Auth0Config.domain,
-  AUTH0_CALLBACK_URL: Auth0Config.callbackUrl || 'http://localhost:3000/callback',
-  BOX_ID: BoxConfig.boxId
+  AUTH0_CLIENT_ID: process.env.OAUTH2_CLIENT_ID,
+  AUTH0_DOMAIN: process.env.DOMAIN,
+  AUTH0_CALLBACK_URL: process.env.CALLBACK_URL || 'http://localhost:3000/callback',
+  BOX_ID: process.env.BOX_ID
 }
 
 let BoxTools = require('../util/BoxTools');
@@ -22,7 +22,7 @@ router.get('/:id?', ensureLoggedIn, function (req, res, next) {
   req = Auth0Tools.normalizeAppMetadata(req);
   let rootFolder = req.params.id || '0';
 
-  BoxTools.generateUserToken(req.app.locals.BoxSdk, req.user.app_metadata[BoxConfig.boxId])
+  BoxTools.generateUserToken(req.app.locals.BoxSdk, req.user.app_metadata[process.env.BOX_ID])
     .then(function (accessTokenInfo) {
       let userClient = req.app.locals.BoxSdk.getBasicClient(accessTokenInfo.accessToken);
       userClient.folders.get(rootFolder, null, function (err, folder) {
@@ -70,7 +70,7 @@ router.get('/:id?', ensureLoggedIn, function (req, res, next) {
           files: files,
           title: "Box Platform",
           path: path,
-          domain: AppConfig.domain
+          domain: process.env.APP_DOMAIN
         });
       });
     });

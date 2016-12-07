@@ -3,11 +3,12 @@ let express = require('express');
 let router = express.Router();
 let ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn();
 let AppConfig = require('../config').AppConfig;
-let Auth0Config = require('../config').Auth0Config;
-let BoxConfig = require('../config').BoxConfig;
 let BoxTools = require('../util/BoxTools');
 
 let jwt = require('express-jwt');
+
+// require env + user models
+require('dotenv').config();
 
 function retrieveFolderCollection(folderId, boxAdminApiClient) {
   console.log(folderId);
@@ -177,8 +178,8 @@ router.get('/:root', ensureLoggedIn, function (req, res, next) {
   let company;
   let rfpName;
 
-  if (req.user && req.user.app_metadata && req.user.app_metadata[BoxConfig.boxId] && req.user.user_metadata && req.user.user_metadata.Company) {
-    boxId = req.user.app_metadata[BoxConfig.boxId];
+  if (req.user && req.user.app_metadata && req.user.app_metadata[process.env.BOX_ID] && req.user.user_metadata && req.user.user_metadata.Company) {
+    boxId = req.user.app_metadata[process.env.BOX_ID];
     company = req.user.user_metadata.Company;
   } else {
     res.redirect('/landing');

@@ -3,15 +3,15 @@ let express = require('express');
 let router = express.Router();
 let jwt = require('express-jwt');
 
-let Auth0Config = require('../config').Auth0Config;
-let BoxConfig = require('../config').BoxConfig;
-
 let Auth0Tools = require('../util/Auth0Tools');
 let BoxTools = require('../util/BoxTools');
 
+// require env + user models
+require('dotenv').config();
+
 router.use(jwt({
-  secret: new Buffer(Auth0Config.clientSecret, 'base64'),
-  audience: Auth0Config.clientId
+  secret: new Buffer(process.env.OAUTH2_CLIENT_SECRET, 'base64'),
+  audience: process.env.OAUTH2_CLIENT_ID
 }));
 
 router.get('/', function (req, res, next) {

@@ -1,6 +1,7 @@
 "use strict";
 let express = require('express');
 let path = require('path');
+let fs = require('fs');
 let favicon = require('serve-favicon');
 let logger = require('morgan');
 let cookieParser = require('cookie-parser');
@@ -9,8 +10,6 @@ let session = require('express-session');
 
 let passport = require('passport');
 let strategy = require('./passport-strategies/auth0-strategy');
-let Auth0Config = require('./config').Auth0Config;
-let BoxConfig = require('./config').BoxConfig;
 
 let Box = require('box-node-sdk');
 let BoxTools = require('./util/BoxTools');
@@ -26,6 +25,9 @@ let submitRoute = require('./routes/submit');
 
 let app = express();
 
+// require env + user models
+require('dotenv').config();
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -39,7 +41,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
-  secret: Auth0Config.sessionSecret,
+  secret: process.env.SESSION_SECRET,
   resave: true,
   saveUninitialized: true
 }));
@@ -49,12 +51,12 @@ app.use(passport.session());
 // Initialize a BoxClient for App Users
 app.use(function (req, res, next) {
   let BoxSdk = new Box({
-    clientID: BoxConfig.clientId,
-    clientSecret: BoxConfig.clientSecret,
+    clientID: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
     appAuth: {
-      keyID: BoxConfig.jwtPublicKeyId,
-      privateKey: BoxConfig.jwtPrivateKey(),
-      passphrase: BoxConfig.jwtPrivateKeyPassword
+      keyID: process.env.JWT_PUBLIC_KEY_ID,
+      privateKey: process.env.JWT_PRIVATE_KEY ? process.env.JWT_PRIVATE_KEY : fs.readFileSync(path.resolve(__dirname, process.env.JWT_PRIVATE_KEY_PATH)),
+      passphrase: process.env.JWT_PRIVATE_KEY_PASSWORD
     }
   });
   app.locals.BoxSdk = BoxSdk;

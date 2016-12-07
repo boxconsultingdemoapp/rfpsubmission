@@ -5,13 +5,12 @@ let ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn();
 let router = express.Router();
 
 let BoxTools = require('../util/BoxTools');
-let BoxConfig = require('../config').BoxConfig;
 
 router.get('/thumbnail/:id', ensureLoggedIn, function (req, res) {
   console.log("User from thumbnail call...");
   console.log(req.user);
   console.log(req.user.app_metadata);
-  BoxTools.generateUserToken(req.app.locals.BoxSdk, req.user.app_metadata[BoxConfig.boxId])
+  BoxTools.generateUserToken(req.app.locals.BoxSdk, req.user.app_metadata[process.env.BOX_ID])
     .then((accessTokenInfo) => {
       console.log("Retrieved an accessToken");
       let userClient = req.app.locals.BoxSdk.getBasicClient(accessTokenInfo.accessToken);
@@ -39,7 +38,7 @@ router.get('/thumbnail/:id', ensureLoggedIn, function (req, res) {
 });
 
 router.get('/preview/:id', ensureLoggedIn, function (req, res) {
-  BoxTools.generateUserToken(req.app.locals.BoxSdk, req.user.app_metadata[BoxConfig.boxId])
+  BoxTools.generateUserToken(req.app.locals.BoxSdk, req.user.app_metadata[process.env.BOX_ID])
     .then((accessTokenInfo) => {
       let userClient = req.app.locals.BoxSdk.getBasicClient(accessTokenInfo.accessToken);
       // The Box file object has a field called "expiring_embed_link", which can
@@ -59,7 +58,7 @@ router.get('/preview/:id', ensureLoggedIn, function (req, res) {
 });
 
 router.get('/download/:id', ensureLoggedIn, function (req, res) {
-  BoxTools.generateUserToken(req.app.locals.BoxSdk, req.user.app_metadata[BoxConfig.boxId])
+  BoxTools.generateUserToken(req.app.locals.BoxSdk, req.user.app_metadata[process.env.BOX_ID])
     .then((accessTokenInfo) => {
       let userClient = req.app.locals.BoxSdk.getBasicClient(accessTokenInfo.accessToken);
       // API call to get the temporary download URL for the user's file

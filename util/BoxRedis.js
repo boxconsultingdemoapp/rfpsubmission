@@ -2,11 +2,13 @@
 
 const redis = require('redis');
 const RedisConfig = require('../config').RedisConfig;
+// require env + user models
+require('dotenv').config();
 
 class BoxRedis {
   constructor() {
-    this.redisClient = redis.createClient({port: RedisConfig.port, host: RedisConfig.address, socket_keepalive: true});
-    this.redisClient.auth(RedisConfig.password, (err) => {
+    this.redisClient = redis.createClient({port: process.env.REDIS_PORT, host: process.env.REDIS_URL, socket_keepalive: true});
+    this.redisClient.auth(process.env.REDIS_PASSWORD, (err) => {
       if (err) { throw err; }
     });
   }
@@ -34,6 +36,3 @@ class BoxRedis {
 }
 
 module.exports = new BoxRedis;
-
-
-

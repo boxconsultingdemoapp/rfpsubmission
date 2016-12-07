@@ -2,7 +2,6 @@
 const fs = require('fs');
 let BoxTools = function () { };
 let BoxRedis = require('./BoxRedis');
-let BoxConfig = require('../config').BoxConfig;
 
 BoxTools.prototype.createNewAppUser = function (boxAdminClient, displayName) {
   return new Promise(function (resolve, reject) {
@@ -27,7 +26,7 @@ BoxTools.prototype.generateUserToken = (BoxSdk, boxId) => {
   return new Promise((resolve, reject) => {
     BoxRedis.getBoxToken(boxId)
       .then((accessTokenFromStorage) => {
-        if (accessTokenFromStorage && accessTokenFromStorage[BoxConfig.expiresAt] && accessTokenFromStorage[BoxConfig.expiresAt] > Date.now()) {
+        if (accessTokenFromStorage && accessTokenFromStorage[process.env.EXPIRES_AT] && accessTokenFromStorage[process.env.EXPIRES_AT] > Date.now()) {
           console.log("Found Box App User Token in Redis...");
           resolve(accessTokenFromStorage);
         } else {
@@ -79,14 +78,14 @@ BoxTools.prototype.setupForNewAppUser = function (boxUserClient, testFileName, t
 
 BoxTools.prototype.createEnterpriseToken = function (BoxRedis, BoxSdk) {
   return new Promise((resolve, reject) => {
-    BoxRedis.getBoxToken(BoxConfig.enterprise)
+    BoxRedis.getBoxToken(process.env.ENTERPRISE)
       .then((enterpriseToken) => {
         console.log(enterpriseToken);
-        if (enterpriseToken && enterpriseToken[BoxConfig.expiresAt] && enterpriseToken[BoxConfig.expiresAt] > Date.now()) {
+        if (enterpriseToken && enterpriseToken[process.env.EXPIRES_AT] && enterpriseToken[process.env.EXPIRES_AT] > Date.now()) {
           console.log("Found existing Box Enterprise Token...");
           resolve(BoxSdk.getBasicClient(enterpriseToken.accessToken)); Î
         } else {
-          BoxSdk.getEnterpriseAppAuthTokens(BoxConfig.enterpriseId, (err, enterpriseToken) => {
+          BoxSdk.getEnterpriseAppAuthTokens(process.env.ENTERPRISE_ID, (err, enterpriseToken) => {
             if (err) { reject(err); }
             console.log("Generated new Enterprise Token:");
             console.log(enterpriseToken);
@@ -94,7 +93,7 @@ BoxTools.prototype.createEnterpriseToken = function (BoxRedis, BoxSdk) {
             enterpriseToken = this.createExpiresAtProp(enterpriseToken);
             console.log(enterpriseToken);
             let expiryTime = this.getExpirationTimeForRedis(enterpriseToken);
-            BoxRedis.setBoxToken(BoxConfig.enterprise, enterpriseToken, expiryTime)
+            BoxRedis.setBoxToken(process.env.ENTERPRISE, enterpriseToken, expiryTime)
               .then(() => {
                 resolve(BoxSdk.getBasicClient(enterpriseToken.accessToken));
               });
@@ -107,13 +106,13 @@ BoxTools.prototype.createEnterpriseToken = function (BoxRedis, BoxSdk) {
 function createExpiresAtProp(accessTokenInfo) {
   console.log("Creating ExpiresAt prop");
   if (accessTokenInfo && (accessTokenInfo.expires_in || accessTokenInfo.accessTokenTTLMS)) {
-    accessTokenInfo[BoxConfig.expiresAt] = (accessTokenInfo.expires_in) ? Date.now() + (accessTokenInfo.expires_in * 1000) : Date.now() + accessTokenInfo.accessTokenTTLMS;
+    accessTokenInfo[process.env.EXPIRES_AT] = (accessTokenInfo.expires_in) ? Date.now() + (accessTokenInfo.expires_in * 1000) : Date.now() + accessTokenInfo.accessTokenTTLMS;
   }
   return accessTokenInfo;
 }
 
 function getExpirationTimeForRedis(accessTokenInfo) {
-  return Math.ceil((new Date(accessTokenInfo[BoxConfig.expiresAt]) - (Date.now() - 420000)) / 1000);
+  return Math.ceil((new Date(accessTokenInfo[process.env.EXPIRES_AT]) - (Date.now() - 420000)) / 1000);
 }
 
 module.exports = new BoxTools();
