@@ -3,8 +3,6 @@ let express = require('express');
 let router = express.Router();
 let passport = require('passport');
 
-let AppConfig = require('../config').AppConfig;
-let BoxConfig = require('../config').BoxConfig;
 
 // require env + user models
 require('dotenv').config();
@@ -12,9 +10,9 @@ require('dotenv').config();
 let BoxTools = require('../util/BoxTools');
 let Auth0Tools = require('../util/Auth0Tools');
 const path = require('path');
-const testFileName = BoxConfig.testFileName;
-const testFilePath = path.join(__dirname, '../', testFileName);
-const testFolderName = BoxConfig.testFolderName;
+const testFileName = process.env.TEST_FILE_NAME;
+const testFilePath = path.join(__dirname, '../', process.env.TEST_FILE_NAME);
+const testFolderName = process.env.TEST_FOLDER_NAME;
 
 var loginEnv = {
   AUTH0_CLIENT_ID: process.env.OAUTH2_CLIENT_ID,
@@ -29,7 +27,7 @@ router.get('/', function (req, res, next) {
 
 router.get('/login',
   function (req, res) {
-    res.render('pages/login', { title: "Box Platform", env: loginEnv, domain: AppConfig.domain });
+    res.render('pages/login', { title: "Box Platform", env: loginEnv, domain: process.env.APP_DOMAIN });
   });
 
 router.get('/logout', function (req, res) {

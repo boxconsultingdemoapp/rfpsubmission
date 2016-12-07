@@ -2,7 +2,6 @@
 let express = require('express');
 let router = express.Router();
 let ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn();
-let AppConfig = require('../config').AppConfig;
 let BoxTools = require('../util/BoxTools');
 
 let jwt = require('express-jwt');
@@ -227,7 +226,7 @@ router.get('/:root', ensureLoggedIn, function (req, res, next) {
       console.log(req.user);
       res.render('pages/submit', {
         title: "Placeholder RFP Name Submission",
-        domain: AppConfig.domain,
+        domain: process.env.APP_DOMAIN,
         accessTokenInfo: accessTokenInfo,
         user: req.user,
         submissionFolder: submissionFolder,

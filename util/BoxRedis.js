@@ -1,7 +1,6 @@
 'use strict';
 
 const redis = require('redis');
-const RedisConfig = require('../config').RedisConfig;
 // require env + user models
 require('dotenv').config();
 

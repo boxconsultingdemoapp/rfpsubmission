@@ -1,7 +1,8 @@
 'use strict';
 let express = require('express');
 let router = express.Router();
-let AppConfig = require('../config').AppConfig;
+// require env + user models
+require('dotenv').config();
 
 router.get('/', function (req, res, next) {
   let landingPageModel = {};
@@ -25,7 +26,7 @@ router.get('/', function (req, res, next) {
         }
       });
     }
-    res.render('pages/landing', { title: "Box Platform", domain: AppConfig.domain, landingPageModel: landingPageModel });
+    res.render('pages/landing', { title: "Box Platform", domain: process.env.APP_DOMAIN, landingPageModel: landingPageModel });
   });
 });
 

@@ -1,7 +1,8 @@
 'use strict';
 let express = require('express');
 let router = express.Router();
-let AppConfig = require('../config').AppConfig;
+// require env + user models
+require('dotenv').config();
 
 router.get('/:id', function (req, res, next) {
 	let folderId = req.params.id;
@@ -24,14 +25,14 @@ router.get('/:id', function (req, res, next) {
 				extension = (extension.length > 1) ? extension[1] : null
 				if (extension && extension === 'zip') {
 					item.created_at = formatDate(new Date(item.created_at));
-					item.size = Math.ceil(Math.ceil(item.size / 1024) / 1024); 
+					item.size = Math.ceil(Math.ceil(item.size / 1024) / 1024);
 					return item;
 				} else if (extension && extension === 'pdf') {
 					pdf = item;
 				}
 			});
 			req.app.locals.boxAdminApiClient.files.get(pdf.id, { fields: 'expiring_embed_link' }, function (err, data) {
-				res.render('pages/overview', { title: "Box Platform", name: parentName, createdAt: createdAt, domain: AppConfig.domain, packages: packages, pdf: pdf, previewLink: data.expiring_embed_link.url, parentId: parent });
+				res.render('pages/overview', { title: "Box Platform", name: parentName, createdAt: createdAt, domain: process.env.APP_DOMAIN, packages: packages, pdf: pdf, previewLink: data.expiring_embed_link.url, parentId: parent });
 			});
 		} else {
 			// res.redirect('/landing');
