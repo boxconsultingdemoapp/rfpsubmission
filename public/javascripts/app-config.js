@@ -1,1 +1,1 @@
-var DOMAIN = process.env.APP_DOMAIN;
+var DOMAIN = "http://localhost:3000";
