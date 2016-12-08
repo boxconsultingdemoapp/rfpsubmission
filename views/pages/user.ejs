@@ -18,15 +18,15 @@
           </div>
           <div class="col-md-11">
             <h2> Welcome
-            <%= user.nickname %>! 
+            <%= user.nickname %>!
             </h2>
-            <span id="logout"><h3><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i>Log out</h3></span>
+            <a id="logout" href="/logout"><h3><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i>Log out</h3></a>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
+
   <div id="box-upload" class="container-fluid">
     <div class="row">
       <%- include ../partials/upload-progress.ejs %>
@@ -59,8 +59,8 @@
     </div>
   </div>
   <hr>
-  
-  
+
+
   <%- include ../partials/scripts %>
   <script src="<%= domain %>/javascripts/BoxSdk.min.js.map"></script>
   <script src="<%= domain %>/javascripts/BoxSdk.min.js"></script>
