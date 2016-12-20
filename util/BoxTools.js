@@ -84,7 +84,7 @@ BoxTools.prototype.createEnterpriseToken = function (BoxRedis, BoxSdk) {
         console.log(enterpriseToken);
         if (enterpriseToken && enterpriseToken[BoxConfig.expiresAt] && enterpriseToken[BoxConfig.expiresAt] > Date.now()) {
           console.log("Found existing Box Enterprise Token...");
-          resolve(BoxSdk.getBasicClient(enterpriseToken.accessToken)); Î
+          resolve(BoxSdk.getBasicClient(enterpriseToken.accessToken));
         } else {
           BoxSdk.getEnterpriseAppAuthTokens(BoxConfig.enterpriseId, (err, enterpriseToken) => {
             if (err) { reject(err); }
